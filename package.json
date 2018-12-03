@@ -13,9 +13,11 @@
   "dependencies": {
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "live-server": "^1.2.0",
+    "mongoose": "^5.3.14",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.4",
     "react": "^16.5.2",

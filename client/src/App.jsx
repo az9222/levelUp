@@ -22,7 +22,7 @@ class App extends React.Component {
     let params = {
       part: 'snippet',
       key: youtubeAPIKey,
-      query: `${query.searchValue}`,
+      q: `${query.searchValue}, ${query.selectResourceType}, ${query.selectGrade}, ${query.selectSubject}`,
       maxResults: 25,
       type: 'video',
       videoEmbeddable: 'true'

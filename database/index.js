@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/hwresources');
-var db = mongoose.connection;
+const db = mongoose.connect('mongodb://localhost/hwresources');
+var database = mongoose.connection;
 
-db.once('open', ()=>{console.log('database connection open')}).on('error', ()=> {console.log('error')});
+database.once('open', ()=>{console.log('database connection open')}).on('error',()=> {console.log('error')});
+
+module.exports.db = db;
+module.exports.database = database;
