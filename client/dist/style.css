@@ -11,14 +11,7 @@ body {
   margin-left: 5%;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
-  /* background-color: honeydew;
-  color: seagreen; */
 }
-
-/* .banner {
-  width: 500px;
-  display: center;
-} */
 
 .banner {
   width: 50%;

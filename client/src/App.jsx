@@ -22,7 +22,7 @@ class App extends React.Component {
     let params = {
       part: 'snippet',
       key: youtubeAPIKey,
-      query: `${query.searchValue}, ${query.selectResourceType}, ${query.selectGrade}, ${query.selectSubject}`,
+      query: `${query.searchValue}`,
       maxResults: 25,
       type: 'video',
       videoEmbeddable: 'true'
@@ -32,7 +32,6 @@ class App extends React.Component {
     fetch(url).then(
       response => response.json()
     ).then((data) => {
-      console.log(data.items)
       this.setState({
         step: 'results',
         youtubeResults: data.items

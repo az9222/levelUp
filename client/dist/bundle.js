@@ -192,7 +192,7 @@ function (_React$Component) {
       var params = {
         part: 'snippet',
         key: _config_js__WEBPACK_IMPORTED_MODULE_5__["default"],
-        query: "".concat(query.searchValue, ", ").concat(query.selectResourceType, ", ").concat(query.selectGrade, ", ").concat(query.selectSubject),
+        query: "".concat(query.searchValue),
         maxResults: 25,
         type: 'video',
         videoEmbeddable: 'true'
@@ -204,8 +204,6 @@ function (_React$Component) {
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log(data.items);
-
         _this2.setState({
           step: 'results',
           youtubeResults: data.items
@@ -390,18 +388,17 @@ var SearchButton = function SearchButton(props) {
     value: "searchButton",
     onClick: props.onClickHomeButton
   }, "Back to Search");
-}; // const ResultsList = (props) => (
-//   <div className="resultsList">
-//     <ul>
-//       {props.searchResults.map((result) => {
-//         <li className="single-result">
-//           {result[0].snippet.title}
-//         </li>
-//       })}
-//     </ul>
-//   </div>
-// );
+};
 
+var ResultsList = function ResultsList(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "resultsList"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, props.searchResults.map(function (result) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "single-result"
+    }, result.snippet.title);
+  })));
+};
 
 var Results =
 /*#__PURE__*/
@@ -417,7 +414,9 @@ function (_React$Component) {
   _createClass(Results, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Results"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourcesButton, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Results"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResultsList, {
+        searchResults: this.props.searchResults
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourcesButton, {
         onClickResourcesButton: this.props.onClickResourcesButton
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchButton, {
         onClickHomeButton: this.props.onClickHomeButton
@@ -585,7 +584,7 @@ function (_React$Component) {
       newState[e.target.name] = e.target.value;
       this.setState({
         query: newState
-      });
+      }); // console.log('q', this.state.query)
     }
   }, {
     key: "render",
