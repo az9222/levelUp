@@ -86,6 +86,20 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./client/config.js":
+/*!**************************!*\
+  !*** ./client/config.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var youtubeAPIKey = 'AIzaSyAhmPjpoP3FigONPuJE5Ni-mHz97sFUAnY';
+/* harmony default export */ __webpack_exports__["default"] = (youtubeAPIKey);
+
+/***/ }),
+
 /***/ "./client/index.js":
 /*!*************************!*\
   !*** ./client/index.js ***!
@@ -122,6 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Results_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Results.jsx */ "./client/src/Results.jsx");
 /* harmony import */ var _SavedResources_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SavedResources.jsx */ "./client/src/SavedResources.jsx");
 /* harmony import */ var _TopBar_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TopBar.jsx */ "./client/src/TopBar.jsx");
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config.js */ "./client/config.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -146,6 +161,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var App =
 /*#__PURE__*/
 function (_React$Component) {
@@ -158,6 +174,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
     _this.state = {
+      youtubeResults: [],
       step: 'search'
     };
     _this.onSubmitChangePage = _this.onSubmitChangePage.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -168,10 +185,33 @@ function (_React$Component) {
 
   _createClass(App, [{
     key: "onSubmitChangePage",
-    value: function onSubmitChangePage(e) {
+    value: function onSubmitChangePage(e, query) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.setState({
-        step: 'results'
+      var params = {
+        part: 'snippet',
+        key: _config_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+        query: "".concat(query.searchValue, ", ").concat(query.selectResourceType, ", ").concat(query.selectGrade, ", ").concat(query.selectSubject),
+        maxResults: 25,
+        type: 'video',
+        videoEmbeddable: 'true'
+      };
+      var url = new URL('https://www.googleapis.com/youtube/v3/search');
+      Object.keys(params).forEach(function (key) {
+        return url.searchParams.append(key, params[key]);
+      });
+      fetch(url).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data.items);
+
+        _this2.setState({
+          step: 'results',
+          youtubeResults: data.items
+        });
+      }).catch(function (error) {
+        return console.log(error);
       });
     }
   }, {
@@ -202,7 +242,8 @@ function (_React$Component) {
         case 'results':
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Results_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
             onClickResourcesButton: this.onClickResourcesButton,
-            onClickHomeButton: this.onClickHomeButton
+            onClickHomeButton: this.onClickHomeButton,
+            searchResults: this.state.youtubeResults
           });
 
         case 'savedResources':
@@ -315,7 +356,6 @@ var Form = function Form(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _SavedResources_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SavedResources.jsx */ "./client/src/SavedResources.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -336,7 +376,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var ResourcesButton = function ResourcesButton(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
@@ -351,7 +390,18 @@ var SearchButton = function SearchButton(props) {
     value: "searchButton",
     onClick: props.onClickHomeButton
   }, "Back to Search");
-};
+}; // const ResultsList = (props) => (
+//   <div className="resultsList">
+//     <ul>
+//       {props.searchResults.map((result) => {
+//         <li className="single-result">
+//           {result[0].snippet.title}
+//         </li>
+//       })}
+//     </ul>
+//   </div>
+// );
+
 
 var Results =
 /*#__PURE__*/
@@ -531,7 +581,6 @@ function (_React$Component) {
   _createClass(Search, [{
     key: "onInputChange",
     value: function onInputChange(e) {
-      console.log(e.target);
       var newState = Object.assign({}, this.state.query);
       newState[e.target.name] = e.target.value;
       this.setState({
@@ -541,6 +590,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "https://73v3u36iopz178i0z3a33g7d-wpengine.netdna-ssl.com/wp-content/uploads/2015/07/elearning-banner-blog-500x250.png",
         className: "banner"
@@ -548,8 +599,10 @@ function (_React$Component) {
         className: "title"
       }, "Better Choices. Better Learning."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         onInputChange: this.onInputChange,
-        onSubmitChangePage: this.props.onSubmitChangePage
-      }), console.log('test', this.state.query));
+        onSubmitChangePage: function onSubmitChangePage(e) {
+          return _this2.props.onSubmitChangePage(e, _this2.state.query);
+        }
+      }));
     }
   }]);
 

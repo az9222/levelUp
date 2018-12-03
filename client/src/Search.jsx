@@ -11,7 +11,6 @@ class Search extends React.Component {
   };
 
   onInputChange(e){
-    console.log(e.target)
     let newState = Object.assign({}, this.state.query); 
     newState[e.target.name] = e.target.value
     this.setState({
@@ -24,8 +23,8 @@ class Search extends React.Component {
       <div>
         <img src = 'https://73v3u36iopz178i0z3a33g7d-wpengine.netdna-ssl.com/wp-content/uploads/2015/07/elearning-banner-blog-500x250.png' className="banner" />
         <p className="title">Better Choices. Better Learning.</p>
-        <Form onInputChange={this.onInputChange} onSubmitChangePage={this.props.onSubmitChangePage}/>
-        {console.log('test', this.state.query)}
+        <Form onInputChange={this.onInputChange} 
+          onSubmitChangePage={(e) => this.props.onSubmitChangePage(e, this.state.query)}/>
       </div>
     )
   }

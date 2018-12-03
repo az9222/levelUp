@@ -1,5 +1,4 @@
 import React from 'react';
-import SavedResources from './SavedResources.jsx';
 
 const ResourcesButton = (props) => (
   <button type="button" value="savedResources" onClick={props.onClickResourcesButton}>Saved Resources</button>
@@ -7,8 +6,19 @@ const ResourcesButton = (props) => (
 
 const SearchButton = (props) => (
   <button type="button" value="searchButton" onClick={props.onClickHomeButton}>Back to Search</button>
-)
+);
 
+// const ResultsList = (props) => (
+//   <div className="resultsList">
+//     <ul>
+//       {props.searchResults.map((result) => {
+//         <li className="single-result">
+//           {result[0].snippet.title}
+//         </li>
+//       })}
+//     </ul>
+//   </div>
+// );
 
 class Results extends React.Component {
   constructor(props) {
@@ -19,6 +29,7 @@ class Results extends React.Component {
     return (
       <div>
         <p>Results</p>
+      
         <ResourcesButton onClickResourcesButton={this.props.onClickResourcesButton} />
         <SearchButton onClickHomeButton={this.props.onClickHomeButton} />
       </div>
