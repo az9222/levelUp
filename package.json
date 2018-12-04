@@ -16,6 +16,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "khan": "^0.1.8",
     "live-server": "^1.2.0",
     "mongoose": "^5.3.14",
     "mysql": "^2.16.0",

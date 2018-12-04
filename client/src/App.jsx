@@ -3,13 +3,14 @@ import Search from './Search.jsx';
 import Results from './Results.jsx';
 import SavedResources from './SavedResources.jsx';
 import TopBar from './TopBar.jsx';
-import youtubeAPIKey from '../config.js';
+import {youtubeAPIKey, khanKey} from '../config.js';
+import khan from 'khan';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      youtubeResults: [],
+      searchResults: [],
       step: 'search'
     }
     this.onSubmitChangePage = this.onSubmitChangePage.bind(this);
@@ -26,16 +27,17 @@ class App extends React.Component {
       maxResults: 25,
       type: 'video',
       videoEmbeddable: 'true',
-      topicId: 'knowledge'
+      topicId: '/m/01k8wb' //knowledge only
     }
     let url = new URL('https://www.googleapis.com/youtube/v3/search');
     Object.keys(params).forEach(key=>url.searchParams.append(key, params[key]));
     fetch(url).then(
       response => response.json()
     ).then((data) => {
+      let options = this.state.searchResults.concat(data.items)
       this.setState({
         step: 'results',
-        youtubeResults: data.items
+        searchResults: options
       })}
     ).catch((error)=>console.log(error));
   };
@@ -59,8 +61,8 @@ class App extends React.Component {
       case 'search':
         return <Search onSubmitChangePage={this.onSubmitChangePage} />
       case 'results':
-      console.log(this.state.youtubeResults)
-        return <Results onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.youtubeResults} />
+      console.log(this.state.searchResults)
+        return <Results onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.searchResults} />
       case 'savedResources':
         return <SavedResources onClickHomeButton={this.onClickHomeButton} />
       default:
