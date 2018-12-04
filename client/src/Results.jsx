@@ -19,12 +19,16 @@ class Results extends React.Component {
     this.saveResource = this.saveResource.bind(this);
   };
 
-  saveResource(e, videoInfo){
+  saveResource(e, info, subjectType){
     e.preventDefault();
-    alert(`"${videoInfo.title}"   Saved`);
-    axios.post('/savedResources', videoInfo)
+    let resource = {
+      info,
+      subjectType
+    };
+    alert(`"${info.title}"   Saved`);
+    axios.post('/savedResources', resource)
     .then((result) => {
-      let resources = this.state.selectedResource.concat(videoInfo);
+      let resources = this.state.selectedResource.concat(info);
       this.setState({
         selectedResource: resources
       })
@@ -38,7 +42,7 @@ class Results extends React.Component {
     return (
       <div>
         <p>Results Matching</p>
-        <ResultsList searchResults={this.props.searchResults} saveResource={this.saveResource} searchType={this.props.searchType} />
+        <ResultsList searchResults={this.props.searchResults} saveResource={this.saveResource} searchType={this.props.searchType} subjectType={this.props.subjectType}/>
         <ResourcesButton onClickResourcesButton={this.props.onClickResourcesButton} />
         <SearchButton onClickHomeButton={this.props.onClickHomeButton} />
       </div>

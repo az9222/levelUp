@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const db = require('./index.js');
 
 const resourceSchema = mongoose.Schema({
-  title: String,
-  description: String,
-  url: String
+  info: Map,
+  subjectType: String
 });
 
 const ResourceModel = mongoose.model('ResourceModel', resourceSchema);
@@ -41,18 +40,7 @@ const deleteResource = (id, callback) => {
   });
 };
 
-const deleteAll = (callback) => {
-  ResourceModel.remove({}, (err, results) => {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
-    }
-  });
-};
-
 module.exports.ResourceModel = ResourceModel;
 module.exports.save = save;
 module.exports.getAllResources = getAllResources;
 module.exports.deleteResource = deleteResource;
-module.exports.deleteAll = deleteAll;

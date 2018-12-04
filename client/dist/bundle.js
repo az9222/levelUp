@@ -220,8 +220,9 @@ function (_React$Component) {
         _this2.setState({
           step: 'results',
           searchResults: options,
-          searchType: query.selectResourceType //default state being set 
-
+          searchType: query.selectResourceType,
+          //default state being set 
+          subjectType: query.selectSubject
         });
       }).catch(function (error) {
         return console.log(error);
@@ -254,7 +255,8 @@ function (_React$Component) {
         _this3.setState({
           step: 'results',
           searchResults: options,
-          searchType: query.selectResourceType
+          searchType: query.selectResourceType,
+          subjectType: query.selectSubject
         });
       }).catch(function (error) {
         return console.log(error);
@@ -291,7 +293,8 @@ function (_React$Component) {
             searchType: this.state.searchType,
             onClickResourcesButton: this.onClickResourcesButton,
             onClickHomeButton: this.onClickHomeButton,
-            searchResults: this.state.searchResults
+            searchResults: this.state.searchResults,
+            subjectType: this.state.subjectType
           });
 
         case 'savedResources':
@@ -464,13 +467,17 @@ function (_React$Component) {
 
   _createClass(Results, [{
     key: "saveResource",
-    value: function saveResource(e, videoInfo) {
+    value: function saveResource(e, info, subjectType) {
       var _this2 = this;
 
       e.preventDefault();
-      alert("\"".concat(videoInfo.title, "\"   Saved"));
-      axios.post('/savedResources', videoInfo).then(function (result) {
-        var resources = _this2.state.selectedResource.concat(videoInfo);
+      var resource = {
+        info: info,
+        subjectType: subjectType
+      };
+      alert("\"".concat(info.title, "\"   Saved"));
+      axios.post('/savedResources', resource).then(function (result) {
+        var resources = _this2.state.selectedResource.concat(info);
 
         _this2.setState({
           selectedResource: resources
@@ -485,7 +492,8 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Results Matching"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ResultsList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         searchResults: this.props.searchResults,
         saveResource: this.saveResource,
-        searchType: this.props.searchType
+        searchType: this.props.searchType,
+        subjectType: this.props.subjectType
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourcesButton, {
         onClickResourcesButton: this.props.onClickResourcesButton
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchButton, {
@@ -530,11 +538,11 @@ var ResultsList = function ResultsList(props) {
       className: "list-title"
     }, props.searchType === "video" ? result.snippet.title : "".concat(result.volumeInfo.title, " by ").concat(result.volumeInfo.authors[0])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "save-button",
-      onClick: function onClick(e, videoInfo) {
+      onClick: function onClick(e) {
         if (props.searchType === "video") {
-          props.saveResource(e, result.snippet);
+          props.saveResource(e, result.snippet, props.subjectType);
         } else {
-          props.saveResource(e, result.volumeInfo);
+          props.saveResource(e, result.volumeInfo, props.subjectType);
         }
       }
     }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description: "), props.searchType === "video" ? result.snippet.description : result.volumeInfo.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
@@ -618,7 +626,7 @@ var SavedList = function SavedList(props) {
       className: "list-item"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "list-title"
-    }, item.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, item.info.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.info.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: function onClick(e) {
         return props.deleteResource(e, item);
       }

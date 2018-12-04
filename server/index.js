@@ -19,6 +19,7 @@ app.get('/savedResources', (req, res) => {
 });
 
 app.post('/savedResources', (req, res) => {
+  console.log(req.body);
   resources.save(req.body, (err, results) => {
     if (err) {
       res.status(500).send(err);
@@ -40,16 +41,6 @@ app.delete('/savedResources/:id', (req, res) => {
           res.status(200).send(results);
         }
       });
-    }
-  });
-});
-
-app.delete('/savedResources', (req, res) => {
-  resources.deleteResource((err, results) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send();
     }
   });
 });

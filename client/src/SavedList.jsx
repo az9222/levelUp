@@ -6,10 +6,10 @@ const SavedList = (props) => (
      return (
     <div className="list-item">
       <div className="list-title">
-      {item.title}
+      {item.info.title}
       </div>
       <br />
-      {item.description}
+      {item.info.description}
       <br />
       <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
     </div> 

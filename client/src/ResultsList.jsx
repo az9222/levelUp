@@ -12,11 +12,11 @@ const ResultsList = (props) => {
           <div className="video-title-description">
             <p className="list-title">{props.searchType === "video" ? result.snippet.title : `${result.volumeInfo.title} by ${result.volumeInfo.authors[0]}`}</p>
             <button className="save-button" 
-              onClick={ (e, videoInfo) =>{
+              onClick={ (e) =>{
                 if (props.searchType === "video") {
-                  props.saveResource(e, result.snippet);
+                  props.saveResource(e, result.snippet, props.subjectType);
                 } else {
-                  props.saveResource(e, result.volumeInfo)
+                  props.saveResource(e, result.volumeInfo, props.subjectType)
                 }
               }} >
             Save</button>

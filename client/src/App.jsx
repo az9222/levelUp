@@ -42,7 +42,8 @@ class App extends React.Component {
       this.setState({
         step: 'results',
         searchResults: options,
-        searchType: query.selectResourceType //default state being set 
+        searchType: query.selectResourceType, //default state being set 
+        subjectType: query.selectSubject
       })
     }).catch((error) => console.log(error));
   }
@@ -66,7 +67,8 @@ class App extends React.Component {
       this.setState({
         step: 'results',
         searchResults: options,
-        searchType: query.selectResourceType
+        searchType: query.selectResourceType,
+        subjectType: query.selectSubject
       })}
     ).catch((error)=>console.log(error));
   }
@@ -91,7 +93,7 @@ class App extends React.Component {
         return <Search onSubmitChangePage={this.onSubmitChangePage} />
       case 'results':
       console.log(this.state.searchResults)
-        return <Results searchType={this.state.searchType} onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.searchResults} />
+        return <Results searchType={this.state.searchType} onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.searchResults} subjectType={this.state.subjectType}/>
       case 'savedResources':
         return <SavedResources onClickHomeButton={this.onClickHomeButton} />
       default:
