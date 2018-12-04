@@ -41,10 +41,10 @@ class Results extends React.Component {
   render(){
     return (
       <div>
-        <p>Results Matching</p>
-        <ResultsList searchResults={this.props.searchResults} saveResource={this.saveResource} searchType={this.props.searchType} subjectType={this.props.subjectType}/>
+        <p>Matching Results</p>
         <ResourcesButton onClickResourcesButton={this.props.onClickResourcesButton} />
         <SearchButton onClickHomeButton={this.props.onClickHomeButton} />
+        <ResultsList searchResults={this.props.searchResults} saveResource={this.saveResource} searchType={this.props.searchType} subjectType={this.props.subjectType}/>
       </div>
     )
   }

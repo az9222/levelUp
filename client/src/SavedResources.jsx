@@ -87,16 +87,16 @@ class SavedResources extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    listResources: []
-  }
+      listResources: []
+    }
   this.deleteResource = this.deleteResource.bind(this);
 };
 
 componentDidMount(){
-  this.getListOfResourcs();
+  this.getListOfResources();
 }
 
-getListOfResourcs() {
+getListOfResources() {
   fetch('/savedResources')
   .then((response) => {
     return response.json();
@@ -111,12 +111,14 @@ getListOfResourcs() {
 
 deleteResource(e, item) {
   e.preventDefault();
-  alert(`${item.title} deleted`);
+  console.log(item);
+  alert(`${item.info.title} deleted`);
   axios.delete(`/savedResources/${item._id}`)
-  .then((data) => {
+  .then((response) => {
     this.setState({
-      listResources: data
+      listResources: response.data
     })
+    // this.getListOfResources();
   })
   .catch((error) => {console.log(error)});
 };

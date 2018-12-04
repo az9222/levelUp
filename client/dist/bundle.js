@@ -491,15 +491,15 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Results Matching"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ResultsList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Matching Results"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourcesButton, {
+        onClickResourcesButton: this.props.onClickResourcesButton
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchButton, {
+        onClickHomeButton: this.props.onClickHomeButton
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ResultsList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         searchResults: this.props.searchResults,
         saveResource: this.saveResource,
         searchType: this.props.searchType,
         subjectType: this.props.subjectType
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourcesButton, {
-        onClickResourcesButton: this.props.onClickResourcesButton
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchButton, {
-        onClickHomeButton: this.props.onClickHomeButton
       }));
     }
   }]);
@@ -845,11 +845,11 @@ function (_React$Component) {
   _createClass(SavedResources, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.getListOfResourcs();
+      this.getListOfResources();
     }
   }, {
-    key: "getListOfResourcs",
-    value: function getListOfResourcs() {
+    key: "getListOfResources",
+    value: function getListOfResources() {
       var _this2 = this;
 
       fetch('/savedResources').then(function (response) {
@@ -868,11 +868,13 @@ function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      alert("".concat(item.title, " deleted"));
-      axios.delete("/savedResources/".concat(item._id)).then(function (data) {
+      console.log(item);
+      alert("".concat(item.info.title, " deleted"));
+      axios.delete("/savedResources/".concat(item._id)).then(function (response) {
         _this3.setState({
-          listResources: data
-        });
+          listResources: response.data
+        }); // this.getListOfResources();
+
       }).catch(function (error) {
         console.log(error);
       });
