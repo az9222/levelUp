@@ -33,6 +33,7 @@ const Form = (props) => (
         <option value="languageArts">Language Arts</option>
         <option value="science">Science</option>
         <option value="socialStudies">Social Studies</option>
+        <option value="other">Other</option>
       </select>
       <input type="submit" value="Submit" />
     </form>

@@ -386,7 +386,9 @@ var Form = function Form(props) {
     value: "science"
   }, "Science"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
     value: "socialStudies"
-  }, "Social Studies")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, "Social Studies"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "other"
+  }, "Other")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "submit",
     value: "Submit"
   })));
@@ -618,10 +620,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
+var filterBySubject = function filterBySubject(listOfSavedItems, subject) {
+  return listOfSavedItems.filter(function (resource) {
+    return resource.subjectType === subject;
+  });
+};
+
 var SavedList = function SavedList(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  var math = filterBySubject(props.savedItem, "math");
+  var languageArts = filterBySubject(props.savedItem, "languageArts");
+  var science = filterBySubject(props.savedItem, "science");
+  var socialStudies = filterBySubject(props.savedItem, "socialStudies");
+  var other = filterBySubject(props.savedItem, "other");
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "saved-item"
-  }, props.savedItem ? props.savedItem.map(function (item) {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "subject"
+  }, "Math"), math ? math.map(function (item) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "list-item"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -631,7 +646,63 @@ var SavedList = function SavedList(props) {
         return props.deleteResource(e, item);
       }
     }, "Delete"));
-  }) : "Nothing is saved!");
+  }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "saved-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "subject"
+  }, "Language Arts"), languageArts ? languageArts.map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-item"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-title"
+    }, item.info.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.info.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(e) {
+        return props.deleteResource(e, item);
+      }
+    }, "Delete"));
+  }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "saved-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "subject"
+  }, "Science"), science ? science.map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-item"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-title"
+    }, item.info.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.info.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(e) {
+        return props.deleteResource(e, item);
+      }
+    }, "Delete"));
+  }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "saved-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "subject"
+  }, "Social Studies"), socialStudies ? socialStudies.map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-item"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-title"
+    }, item.info.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.info.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(e) {
+        return props.deleteResource(e, item);
+      }
+    }, "Delete"));
+  }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "saved-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "subject"
+  }, "Other"), other ? other.map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-item"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-title"
+    }, item.info.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.info.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(e) {
+        return props.deleteResource(e, item);
+      }
+    }, "Delete"));
+  }) : "Nothing is saved!"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SavedList);

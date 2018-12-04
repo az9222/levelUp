@@ -44,3 +44,9 @@ body {
 .list-title {
   color: blue
 }
+
+.subject {
+  font-family: 'Righteous', cursive;
+  font-size: 20px;
+  color: #3E9EDE;
+}
