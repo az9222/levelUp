@@ -14,6 +14,33 @@ body {
 }
 
 .banner {
+  margin-top: 20px;
   width: 50%;
   margin-left: 280px;
+  border-radius: 20px;
+}
+
+.single-result {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #C1B9B9;
+  padding: 15px;
+}
+
+.saved-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #C1B9B9;
+  padding: 15px;
+}
+
+.list-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #C1B9B9;
+  padding: 15px;
+}
+
+.list-title {
+  color: blue
 }

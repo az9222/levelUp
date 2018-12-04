@@ -76,6 +76,8 @@
 // export default withStyles(styles)(SimpleExpansionPanel);
 
 import React from 'react';
+import SavedList from './SavedList.jsx';
+const axios = require('axios');
 
 const SearchButton = (props) => (
   <button type="button" value="searchButton" onClick={props.onClickHomeButton}>Back to Search</button>
@@ -85,22 +87,45 @@ class SavedResources extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    list: ''
+    listResources: []
   }
+  this.deleteResource = this.deleteResource.bind(this);
 };
 
-// fetch('/savedResources').then((response) => 
-//   response.json();
-// ).then((data) => {
-//   this.setState({
-//     list: data
-//   })
-// }).catch((error) => {console.log(error)});
+componentDidMount(){
+  this.getListOfResourcs();
+}
+
+getListOfResourcs() {
+  fetch('/savedResources')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    this.setState({
+      listResources: data
+    })
+  })
+  .catch((error) => {console.log(error)});
+};
+
+deleteResource(e, item) {
+  e.preventDefault();
+  alert(`${item.title} deleted`);
+  axios.delete(`/savedResources/${item._id}`)
+  .then((data) => {
+    this.setState({
+      listResources: data
+    })
+  })
+  .catch((error) => {console.log(error)});
+};
 
 render(){
   return (
     <div>
       <p>Saved Resources</p>
+      <SavedList savedItem = {this.state.listResources.length > 0 ? this.state.listResources : []} deleteResource = {this.deleteResource} />
       <SearchButton onClickHomeButton={this.props.onClickHomeButton} />
     </div>
     )

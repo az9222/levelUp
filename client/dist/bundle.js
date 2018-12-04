@@ -195,7 +195,8 @@ function (_React$Component) {
         q: "".concat(query.searchValue, ", ").concat(query.selectResourceType, ", ").concat(query.selectGrade, ", ").concat(query.selectSubject),
         maxResults: 25,
         type: 'video',
-        videoEmbeddable: 'true'
+        videoEmbeddable: 'true',
+        topicId: 'knowledge'
       };
       var url = new URL('https://www.googleapis.com/youtube/v3/search');
       Object.keys(params).forEach(function (key) {
@@ -238,6 +239,7 @@ function (_React$Component) {
           });
 
         case 'results':
+          console.log(this.state.youtubeResults);
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Results_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
             onClickResourcesButton: this.onClickResourcesButton,
             onClickHomeButton: this.onClickHomeButton,
@@ -365,13 +367,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -406,31 +408,33 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Results).call(this, props));
     _this.state = {
-      selectedResource: {} // this.saveResource = this.saveResource.bind(this);
-
+      selectedResource: []
     };
+    _this.saveResource = _this.saveResource.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // saveResource(e){
-  //   e.preventDEfault();
-  //   this.setState({
-  //     selectedResource: e.target
-  //   })
-  //   axios.post('/savedResources', this.state.selectedResource)
-  //   .then((selectedResource) => {
-  //     this.setState({
-  //       selectedResource: {}
-  //     })
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   })
-  // }
-
+  }
 
   _createClass(Results, [{
+    key: "saveResource",
+    value: function saveResource(e, videoInfo) {
+      var _this2 = this;
+
+      e.preventDefault();
+      alert("\"".concat(videoInfo.title, "\"   Saved"));
+      axios.post('/savedResources', videoInfo).then(function (result) {
+        var resources = _this2.state.selectedResource.concat(videoInfo);
+
+        _this2.setState({
+          selectedResource: resources
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Results Matching "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VideoList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Results Matching"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VideoList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
         searchResults: this.props.searchResults,
         saveResource: this.saveResource
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResourcesButton, {
@@ -448,6 +452,39 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./client/src/SavedList.jsx":
+/*!**********************************!*\
+  !*** ./client/src/SavedList.jsx ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var SavedList = function SavedList(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "saved-item"
+  }, props.savedItem ? props.savedItem.map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-item"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "list-title"
+    }, item.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), item.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: function onClick(e) {
+        return props.deleteResource(e, item);
+      }
+    }, "Delete"));
+  }) : "Nothing is saved!");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SavedList);
+
+/***/ }),
+
 /***/ "./client/src/SavedResources.jsx":
 /*!***************************************!*\
   !*** ./client/src/SavedResources.jsx ***!
@@ -459,6 +496,7 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _SavedList_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SavedList.jsx */ "./client/src/SavedList.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -469,13 +507,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 // import React from 'react';
 // import PropTypes from 'prop-types';
@@ -551,6 +589,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 // export default withStyles(styles)(SimpleExpansionPanel);
 
 
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 var SearchButton = function SearchButton(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
@@ -571,22 +612,54 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SavedResources).call(this, props));
     _this.state = {
-      list: ''
+      listResources: []
     };
+    _this.deleteResource = _this.deleteResource.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(SavedResources, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getListOfResourcs();
+    }
+  }, {
+    key: "getListOfResourcs",
+    value: function getListOfResourcs() {
+      var _this2 = this;
+
+      fetch('/savedResources').then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this2.setState({
+          listResources: data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "deleteResource",
+    value: function deleteResource(e, item) {
+      var _this3 = this;
+
+      e.preventDefault();
+      alert("".concat(item.title, " deleted"));
+      axios.delete("/savedResources/".concat(item._id)).then(function (data) {
+        _this3.setState({
+          listResources: data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
-    // fetch('/savedResources').then((response) => 
-    //   response.json();
-    // ).then((data) => {
-    //   this.setState({
-    //     list: data
-    //   })
-    // }).catch((error) => {console.log(error)});
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Saved Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchButton, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Saved Resources"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SavedList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        savedItem: this.state.listResources.length > 0 ? this.state.listResources : [],
+        deleteResource: this.deleteResource
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchButton, {
         onClickHomeButton: this.props.onClickHomeButton
       }));
     }
@@ -657,7 +730,7 @@ function (_React$Component) {
       newState[e.target.name] = e.target.value;
       this.setState({
         query: newState
-      }); // console.log('q', this.state.query)
+      });
     }
   }, {
     key: "render",
@@ -798,7 +871,9 @@ var ResultsList = function ResultsList(props) {
       className: "video-title"
     }, result.snippet.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "save-button",
-      onClick: props.saveResource
+      onClick: function onClick(e, videoInfo) {
+        return props.saveResource(e, result.snippet);
+      }
     }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description: "), result.snippet.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
   }));
 };

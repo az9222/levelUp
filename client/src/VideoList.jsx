@@ -8,7 +8,7 @@ const ResultsList = (props) => (
           <img className="video-thumbnail" src={result.snippet.thumbnails.default.url} alt="thumbnail" />
           <div className="video-title-description">
             <p className="video-title">{result.snippet.title}</p>
-            <button className="save-button" onClick={props.saveResource} >Save</button>
+            <button className="save-button" onClick={(e, videoInfo) => props.saveResource(e, result.snippet)} >Save</button>
             <br />
             <p>Description: </p>
             {result.snippet.description}

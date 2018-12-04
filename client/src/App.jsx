@@ -25,7 +25,8 @@ class App extends React.Component {
       q: `${query.searchValue}, ${query.selectResourceType}, ${query.selectGrade}, ${query.selectSubject}`,
       maxResults: 25,
       type: 'video',
-      videoEmbeddable: 'true'
+      videoEmbeddable: 'true',
+      topicId: 'knowledge'
     }
     let url = new URL('https://www.googleapis.com/youtube/v3/search');
     Object.keys(params).forEach(key=>url.searchParams.append(key, params[key]));
@@ -58,6 +59,7 @@ class App extends React.Component {
       case 'search':
         return <Search onSubmitChangePage={this.onSubmitChangePage} />
       case 'results':
+      console.log(this.state.youtubeResults)
         return <Results onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.youtubeResults} />
       case 'savedResources':
         return <SavedResources onClickHomeButton={this.onClickHomeButton} />

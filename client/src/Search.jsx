@@ -16,7 +16,6 @@ class Search extends React.Component {
     this.setState({
       query: newState,
     });
-    // console.log('q', this.state.query)
   };
 
   render(){

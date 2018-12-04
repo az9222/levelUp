@@ -14,31 +14,31 @@ class Results extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedResource: {}
+      selectedResource: []
     }
-    // this.saveResource = this.saveResource.bind(this);
-  }
+    this.saveResource = this.saveResource.bind(this);
+  };
 
-  // saveResource(e){
-  //   e.preventDEfault();
-  //   this.setState({
-  //     selectedResource: e.target
-  //   })
-  //   axios.post('/savedResources', this.state.selectedResource)
-  //   .then((selectedResource) => {
-  //     this.setState({
-  //       selectedResource: {}
-  //     })
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   })
-  // }
+
+  saveResource(e, videoInfo){
+    e.preventDefault();
+    alert(`"${videoInfo.title}"   Saved`);
+    axios.post('/savedResources', videoInfo)
+    .then((result) => {
+      let resources = this.state.selectedResource.concat(videoInfo);
+      this.setState({
+        selectedResource: resources
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   render(){
     return (
       <div>
-        <p>Results Matching </p>
+        <p>Results Matching</p>
         <VideoList searchResults={this.props.searchResults} saveResource={this.saveResource} />
         <ResourcesButton onClickResourcesButton={this.props.onClickResourcesButton} />
         <SearchButton onClickHomeButton={this.props.onClickHomeButton} />

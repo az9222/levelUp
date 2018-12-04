@@ -19,7 +19,7 @@ app.get('/savedResources', (req, res) => {
 });
 
 app.post('/savedResources', (req, res) => {
-  resources.save((err, results) => {
+  resources.save(req.body, (err, results) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -28,8 +28,30 @@ app.post('/savedResources', (req, res) => {
   });
 });
 
-// app.delete('/savedResource/:resourceId', (req, res) => {
-  
-// })
+app.delete('/savedResources/:id', (req, res) => {
+  resources.deleteResource(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      resources.getAllResources((err, results) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(results);
+        }
+      });
+    }
+  });
+});
+
+app.delete('/savedResources', (req, res) => {
+  resources.deleteResource((err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send();
+    }
+  });
+});
 
 app.listen(port, () => {console.log(`Listening to port ${port}`)});
