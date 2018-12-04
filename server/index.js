@@ -19,7 +19,6 @@ app.get('/savedResources', (req, res) => {
 });
 
 app.post('/savedResources', (req, res) => {
-  console.log(req.body);
   resources.save(req.body, (err, results) => {
     if (err) {
       res.status(500).send(err);

@@ -80,16 +80,18 @@ import SavedList from './SavedList.jsx';
 const axios = require('axios');
 
 const SearchButton = (props) => (
-  <button type="button" value="searchButton" onClick={props.onClickHomeButton}>Back to Search</button>
+  <button type="button" value="searchButton" onClick={props.onClickHomeButton} className="backToSearch">Back to Search</button>
 )
 
 class SavedResources extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listResources: []
+      listResources: [],
+      fontColor: 'blue',
     }
   this.deleteResource = this.deleteResource.bind(this);
+  this.favoriteResource = this.favoriteResource.bind(this);
 };
 
 componentDidMount(){
@@ -111,7 +113,6 @@ getListOfResources() {
 
 deleteResource(e, item) {
   e.preventDefault();
-  console.log(item);
   alert(`${item.info.title} deleted`);
   axios.delete(`/savedResources/${item._id}`)
   .then((response) => {
@@ -123,15 +124,22 @@ deleteResource(e, item) {
   .catch((error) => {console.log(error)});
 };
 
+favoriteResource(e, title) {
+  e.preventDefault();
+  this.setState({
+    fontColor: 'red'
+  });
+};
+
 render(){
   return (
     <div>
-      <p>Saved Resources</p>
-      <SavedList savedItem = {this.state.listResources.length > 0 ? this.state.listResources : []} deleteResource = {this.deleteResource} />
+      <p className="header-title">Saved Resources</p>
       <SearchButton onClickHomeButton={this.props.onClickHomeButton} />
+      <SavedList savedItem = {this.state.listResources.length > 0 ? this.state.listResources : []} deleteResource = {this.deleteResource} favoriteResource={this.favoriteResource} defaultColor = {this.state.fontColor} />
     </div>
     )
   }
-}
+};
 
 export default SavedResources;

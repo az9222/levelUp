@@ -92,7 +92,6 @@ class App extends React.Component {
       case 'search':
         return <Search onSubmitChangePage={this.onSubmitChangePage} />
       case 'results':
-      console.log(this.state.searchResults)
         return <Results searchType={this.state.searchType} onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.searchResults} subjectType={this.state.subjectType}/>
       case 'savedResources':
         return <SavedResources onClickHomeButton={this.onClickHomeButton} />

@@ -41,12 +41,30 @@ body {
   padding: 15px;
 }
 
-.list-title {
-  color: blue
-}
-
 .subject {
   font-family: 'Righteous', cursive;
   font-size: 20px;
   color: #3E9EDE;
+}
+
+.header-title {
+  font-family: 'Righteous', cursive;
+  font-size: 30px;
+  color: #378BCB
+}
+
+.delete-button {
+  margin-right: 5px;
+}
+
+.notes {
+  margin-top: 10px;
+}
+
+.backToSearch {
+  margin-top: 6px
+}
+
+.notesForum {
+  margin-top: 18px;
 }

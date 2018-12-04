@@ -1,4 +1,5 @@
 import React from 'react';
+import Notes from './Notes.jsx';
 
 const filterBySubject = (listOfSavedItems, subject) => {
   return listOfSavedItems.filter((resource) => {
@@ -19,13 +20,15 @@ const SavedList = (props) => {
       {math ? math.map((item) => {
         return (
           <div className="list-item">
-            <div className="list-title">
+            <div className="list-title" style={{color: props.defaultColor}}>
             {item.info.title}
             </div>
             <br />
             {item.info.description}
             <br />
-            <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
+            <button className="delete-button" onClick={(e) => props.deleteResource(e, item)}>Delete</button>
+            <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
+            <Notes  notesArea={props.notesArea}/>
           </div> 
           )
         }) : "Nothing is saved!"}
@@ -42,6 +45,7 @@ const SavedList = (props) => {
             {item.info.description}
             <br />
             <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
+            <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
           </div> 
           )
         }) : "Nothing is saved!"}
@@ -58,6 +62,7 @@ const SavedList = (props) => {
           {item.info.description}
           <br />
           <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
+          <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
         </div> 
         )
       }) : "Nothing is saved!"}
@@ -74,6 +79,7 @@ const SavedList = (props) => {
           {item.info.description}
           <br />
           <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
+          <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
         </div> 
         )
       }) : "Nothing is saved!"}
@@ -90,6 +96,7 @@ const SavedList = (props) => {
         {item.info.description}
         <br />
         <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
+        <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
       </div> 
       )
     }) : "Nothing is saved!"}
