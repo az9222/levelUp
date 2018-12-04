@@ -21,7 +21,7 @@ class Notes extends React.Component {
     this.state = {
       notes: {},
       notesArea: ''
-    }
+    } 
     this.onTextChange = this.onTextChange.bind(this);
     this.onNotesSubmit = this.onNotesSubmit.bind(this);
   };
@@ -37,7 +37,7 @@ class Notes extends React.Component {
   onNotesSubmit(e) {
     e.preventDefault();
     this.setState({
-      notesArea: e.target.value
+      notesArea: this.state.notes.savedNotes
     })
   };
 

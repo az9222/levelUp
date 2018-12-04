@@ -20,7 +20,7 @@ const SavedList = (props) => {
       {math ? math.map((item) => {
         return (
           <div className="list-item">
-            <div className="list-title" style={{color: props.defaultColor}}>
+            <div id="list-title" style={{color: props.defaultColor}}>
             {item.info.title}
             </div>
             <br />
@@ -46,6 +46,7 @@ const SavedList = (props) => {
             <br />
             <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
             <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
+            <Notes  notesArea={props.notesArea}/>
           </div> 
           )
         }) : "Nothing is saved!"}
@@ -63,6 +64,7 @@ const SavedList = (props) => {
           <br />
           <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
           <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
+          <Notes  notesArea={props.notesArea}/>
         </div> 
         )
       }) : "Nothing is saved!"}
@@ -80,6 +82,7 @@ const SavedList = (props) => {
           <br />
           <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
           <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
+          <Notes  notesArea={props.notesArea}/>
         </div> 
         )
       }) : "Nothing is saved!"}
@@ -97,6 +100,7 @@ const SavedList = (props) => {
         <br />
         <button onClick={(e) => props.deleteResource(e, item)}>Delete</button>
         <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
+        <Notes  notesArea={props.notesArea}/>
       </div> 
       )
     }) : "Nothing is saved!"}

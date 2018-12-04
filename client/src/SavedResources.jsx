@@ -127,7 +127,7 @@ deleteResource(e, item) {
 favoriteResource(e, title) {
   e.preventDefault();
   this.setState({
-    fontColor: 'red'
+    fontColor: '#B01C1C'
   });
 };
 

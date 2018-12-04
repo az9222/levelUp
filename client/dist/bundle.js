@@ -477,7 +477,7 @@ function (_React$Component) {
     value: function onNotesSubmit(e) {
       e.preventDefault();
       this.setState({
-        notesArea: e.target.value
+        notesArea: this.state.notes.savedNotes
       });
     }
   }, {
@@ -743,7 +743,7 @@ var SavedList = function SavedList(props) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "list-item"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "list-title",
+      id: "list-title",
       style: {
         color: props.defaultColor
       }
@@ -777,7 +777,9 @@ var SavedList = function SavedList(props) {
       onClick: function onClick(e) {
         return props.favoriteResource(e, item.info.title);
       }
-    }, "Favorite"));
+    }, "Favorite"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Notes_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      notesArea: props.notesArea
+    }));
   }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "saved-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -795,7 +797,9 @@ var SavedList = function SavedList(props) {
       onClick: function onClick(e) {
         return props.favoriteResource(e, item.info.title);
       }
-    }, "Favorite"));
+    }, "Favorite"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Notes_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      notesArea: props.notesArea
+    }));
   }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "saved-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -813,7 +817,9 @@ var SavedList = function SavedList(props) {
       onClick: function onClick(e) {
         return props.favoriteResource(e, item.info.title);
       }
-    }, "Favorite"));
+    }, "Favorite"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Notes_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      notesArea: props.notesArea
+    }));
   }) : "Nothing is saved!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "saved-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -831,7 +837,9 @@ var SavedList = function SavedList(props) {
       onClick: function onClick(e) {
         return props.favoriteResource(e, item.info.title);
       }
-    }, "Favorite"));
+    }, "Favorite"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Notes_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      notesArea: props.notesArea
+    }));
   }) : "Nothing is saved!"));
 };
 
@@ -1016,7 +1024,7 @@ function (_React$Component) {
     value: function favoriteResource(e, title) {
       e.preventDefault();
       this.setState({
-        fontColor: 'red'
+        fontColor: '#B01C1C'
       });
     }
   }, {
