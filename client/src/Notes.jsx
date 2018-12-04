@@ -30,27 +30,21 @@ class Notes extends React.Component {
     let newState = Object.assign({}, this.state.notes);
     newState[e.target.name] = e.target.value;
     this.setState({
-      notesArea: newState
+      notes: newState
     })
   };
 
-  onNotesSubmit(e, text) {
+  onNotesSubmit(e) {
     e.preventDefault();
-    axios.post('/savedResources', text.savedNotes)
-    .then((result) => {
-      this.setState({
-        notesArea: result
-      })
-    })
-    .catch((error) => {
-      console.log(error);
+    this.setState({
+      notesArea: e.target.value
     })
   };
 
   render() {
     return (
       <div>
-        <NotesForm onTextChange={this.onTextChange} notesArea={this.state.notesArea}/>
+        <NotesForm onTextChange={this.onTextChange} notesArea={this.state.notesArea} onNotesSubmit={this.onNotesSubmit} />
       </div>
     )
   }

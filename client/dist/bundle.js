@@ -469,21 +469,15 @@ function (_React$Component) {
       var newState = Object.assign({}, this.state.notes);
       newState[e.target.name] = e.target.value;
       this.setState({
-        notesArea: newState
+        notes: newState
       });
     }
   }, {
     key: "onNotesSubmit",
-    value: function onNotesSubmit(e, text) {
-      var _this2 = this;
-
+    value: function onNotesSubmit(e) {
       e.preventDefault();
-      axios.post('/savedResources', text.savedNotes).then(function (result) {
-        _this2.setState({
-          notesArea: result
-        });
-      }).catch(function (error) {
-        console.log(error);
+      this.setState({
+        notesArea: e.target.value
       });
     }
   }, {
@@ -491,7 +485,8 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(NotesForm, {
         onTextChange: this.onTextChange,
-        notesArea: this.state.notesArea
+        notesArea: this.state.notesArea,
+        onNotesSubmit: this.onNotesSubmit
       }));
     }
   }]);
@@ -758,6 +753,7 @@ var SavedList = function SavedList(props) {
         return props.deleteResource(e, item);
       }
     }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "favorite-button",
       onClick: function onClick(e) {
         return props.favoriteResource(e, item.info.title);
       }

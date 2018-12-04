@@ -55,6 +55,11 @@ body {
 
 .delete-button {
   margin-right: 5px;
+  margin-top: 6px;
+}
+
+.favorite-button {
+  margin-top: 6px;
 }
 
 .notes {
@@ -66,5 +71,5 @@ body {
 }
 
 .notesForum {
-  margin-top: 18px;
+  margin-top: 12px;
 }

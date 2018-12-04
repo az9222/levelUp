@@ -27,7 +27,7 @@ const SavedList = (props) => {
             {item.info.description}
             <br />
             <button className="delete-button" onClick={(e) => props.deleteResource(e, item)}>Delete</button>
-            <button onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
+            <button className="favorite-button" onClick={(e) => props.favoriteResource(e, item.info.title)}>Favorite</button>
             <Notes  notesArea={props.notesArea}/>
           </div> 
           )
