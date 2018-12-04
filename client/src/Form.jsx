@@ -12,7 +12,7 @@ const Form = (props) => (
       <select name="selectResourceType" onChange={props.onInputChange}>
         <option value="blankResource"></option>  
         <option value="video">Video</option>
-        <option value="article">Article</option>
+        <option value="book">Book</option>
         <option value="extraPractice">Extra Practice</option>
       </select>
       <span>  Grade: </span> 

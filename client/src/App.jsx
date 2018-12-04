@@ -3,8 +3,8 @@ import Search from './Search.jsx';
 import Results from './Results.jsx';
 import SavedResources from './SavedResources.jsx';
 import TopBar from './TopBar.jsx';
-import {youtubeAPIKey, khanKey} from '../config.js';
-import khan from 'khan';
+import {googleKey, khanKey} from '../config.js';
+// import khan from 'khan';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,11 +18,39 @@ class App extends React.Component {
     this.onClickHomeButton = this.onClickHomeButton.bind(this);
   }
 
+  // getKhanAcademyExercise(searchName) {
+  //   return khan.exercise(searchName);
+  // }
+
   onSubmitChangePage(e, query) {
     e.preventDefault();
+    if (query.selectResourceType === "video") {
+      this.onVideoSearch(e, query)
+    } else if (query.selectResourceType === "book") {
+      this.onBookSearch(e, query);
+    } else {
+      this.onVideoSearch(e, query);
+    }
+  };
+
+  onBookSearch(e, query) {
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${query.searchValue}&key=${googleKey}`
+    fetch(url).then(
+      response => response.json()
+    ).then((data) => {
+      let options = this.state.searchResults.concat(data.items)
+      this.setState({
+        step: 'results',
+        searchResults: options,
+        searchType: query.selectResourceType //default state being set 
+      })
+    }).catch((error) => console.log(error));
+  }
+
+  onVideoSearch(e, query) {
     let params = {
       part: 'snippet',
-      key: youtubeAPIKey,
+      key: googleKey,
       q: `${query.searchValue}, ${query.selectResourceType}, ${query.selectGrade}, ${query.selectSubject}`,
       maxResults: 25,
       type: 'video',
@@ -37,10 +65,11 @@ class App extends React.Component {
       let options = this.state.searchResults.concat(data.items)
       this.setState({
         step: 'results',
-        searchResults: options
+        searchResults: options,
+        searchType: query.selectResourceType
       })}
     ).catch((error)=>console.log(error));
-  };
+  }
 
   onClickResourcesButton(e) {
     e.preventDefault();
@@ -62,7 +91,7 @@ class App extends React.Component {
         return <Search onSubmitChangePage={this.onSubmitChangePage} />
       case 'results':
       console.log(this.state.searchResults)
-        return <Results onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.searchResults} />
+        return <Results searchType={this.state.searchType} onClickResourcesButton={this.onClickResourcesButton} onClickHomeButton={this.onClickHomeButton} searchResults={this.state.searchResults} />
       case 'savedResources':
         return <SavedResources onClickHomeButton={this.onClickHomeButton} />
       default:

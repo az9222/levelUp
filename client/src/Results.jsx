@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoList from './VideoList.jsx';
+import ResultsList from './ResultsList.jsx';
 const axios = require('axios');
 
 const ResourcesButton = (props) => (
@@ -18,7 +18,6 @@ class Results extends React.Component {
     }
     this.saveResource = this.saveResource.bind(this);
   };
-
 
   saveResource(e, videoInfo){
     e.preventDefault();
@@ -39,7 +38,7 @@ class Results extends React.Component {
     return (
       <div>
         <p>Results Matching</p>
-        <VideoList searchResults={this.props.searchResults} saveResource={this.saveResource} />
+        <ResultsList searchResults={this.props.searchResults} saveResource={this.saveResource} searchType={this.props.searchType} />
         <ResourcesButton onClickResourcesButton={this.props.onClickResourcesButton} />
         <SearchButton onClickHomeButton={this.props.onClickHomeButton} />
       </div>

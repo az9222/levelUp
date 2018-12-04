@@ -1,24 +1,36 @@
 import React from 'react';
 
-const ResultsList = (props) => (
-  <div className="resultsList">
+const ResultsList = (props) => {
+  return (
+    <div className="resultsList">
       {props.searchResults.map((result) => {
         return (
         <div className="single-result">
-          <img className="video-thumbnail" src={result.snippet.thumbnails.default.url} alt="thumbnail" />
+          <img className="video-thumbnail" 
+            src={props.searchType === "video" ? result.snippet.thumbnails.default.url : result.volumeInfo.imageLinks.thumbnail} 
+            alt="thumbnail" />
           <div className="video-title-description">
-            <p className="list-title">{result.snippet.title}</p>
-            <button className="save-button" onClick={(e, videoInfo) => props.saveResource(e, result.snippet)} >Save</button>
+            <p className="list-title">{props.searchType === "video" ? result.snippet.title : `${result.volumeInfo.title} by ${result.volumeInfo.authors[0]}`}</p>
+            <button className="save-button" 
+              onClick={ (e, videoInfo) =>{
+                if (props.searchType === "video") {
+                  props.saveResource(e, result.snippet);
+                } else {
+                  props.saveResource(e, result.volumeInfo)
+                }
+              }} >
+            Save</button>
             <br />
             <p>Description: </p>
-            {result.snippet.description}
+            {props.searchType === "video" ? result.snippet.description : result.volumeInfo.description}
             <br />
           </div>
         </div>
         )
       })}
-  </div>
-);
+    </div>
+  );
+}
 
 export default ResultsList;
 
