@@ -1,14 +1,9 @@
+const resourceSchema = require('./schema.js')
 const mongoose = require('mongoose');
-const db = require('./index.js');
-
-const resourceSchema = mongoose.Schema({
-  info: Map,
-  subjectType: String
-});
 
 const ResourceModel = mongoose.model('ResourceModel', resourceSchema);
 
-const save = (resource, callback) => {
+const createResource = (resource, callback) => {
   const newResource = new ResourceModel(resource);
   newResource.save((err, results) => {
     if (err) {
@@ -40,7 +35,6 @@ const deleteResource = (id, callback) => {
   });
 };
 
-module.exports.ResourceModel = ResourceModel;
-module.exports.save = save;
+module.exports.createResource = createResource;
 module.exports.getAllResources = getAllResources;
 module.exports.deleteResource = deleteResource;

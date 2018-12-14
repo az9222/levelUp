@@ -1,8 +1,15 @@
 var mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://localhost/hwresources');
+mongoose.connect('mongodb://localhost/hwresources');
+
+//Need to add check and create option
 var database = mongoose.connection;
 
-database.once('open', ()=>{console.log('database connection open')}).on('error',()=> {console.log('error')});
+database.once('open', () => {
+    console.log('database connection open')
+})
 
-module.exports.db = db;
+database.on('error', ()=> {
+    console.log('error')
+});
+
 module.exports.database = database;

@@ -1,10 +1,10 @@
 
-const resources = require('../../../database/resourcesDB');
+const resource = require('../../../database/resource');
 
 module.exports = {
     getAllResources: (req, res) => {
         console.log("here")
-        resources.getAllResources((err, results) => {
+        resource.getAllResources((err, results) => {
             if (err) {
               res.status(500).send(err);
             } else {
@@ -13,7 +13,7 @@ module.exports = {
         })
     },
     createResource: (req, res) => {
-        resources.save(req.body, (err, results) => {
+        resource.createResource(req.body, (err, results) => {
             if (err) {
               res.status(500).send(err);
             } else {
@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     deleteResource: (req, res) => {
-        resources.deleteResource(req.params.id, (err, results) => {
+        resource.deleteResource(req.params.id, (err, results) => {
             if (err) {
               res.status(500).send(err);
             } else {
