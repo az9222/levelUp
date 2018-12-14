@@ -10,6 +10,6 @@ app.use(bodyParser.json());
 app.use(express.static('client/dist'));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
-app.use('/resources', resources)
+app.use('/bookmarks', resources)
 
 app.listen(port, () => {console.log(`Listening to port ${port}`)});
