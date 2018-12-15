@@ -26,7 +26,7 @@ module.exports = {
             if (err) {
               res.status(500).send(err);
             } else {
-              resources.getAllResources((err, results) => {
+              resource.getAllResources((err, results) => {
                 if (err) {
                   res.status(500).send(err);
                 } else {

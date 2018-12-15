@@ -19,7 +19,6 @@ const getAllResources = (callback) => {
     if (err) {
       callback(err, null);
     } else {
-      console.log(resources);
       callback(null, resources);
     }
   });

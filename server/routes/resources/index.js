@@ -4,6 +4,6 @@ const resources = require('../../controller/resources')
 
 router.get('/resources', resources.getAllResources)
 router.post('/resources', resources.createResource)
-router.delete('/resource/:id', resources.deleteResource)
+router.delete('/resources/:id', resources.deleteResource)
 
 module.exports = router
