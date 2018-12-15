@@ -1,4 +1,5 @@
-Bookmarks Schema 
+Resource Schema 
 
-
+info: Map 
+subjectType: String
 
