@@ -99,7 +99,7 @@ componentDidMount(){
 }
 
 getListOfResources() {
-  fetch('/savedResources')
+  fetch('/bookmarks/resources')
   .then((response) => {
     return response.json();
   })
@@ -114,7 +114,7 @@ getListOfResources() {
 deleteResource(e, item) {
   e.preventDefault();
   alert(`${item.info.title} deleted`);
-  axios.delete(`/savedResources/${item._id}`)
+  axios.delete(`/bookmarks/resources/${item._id}`)
   .then((response) => {
     this.setState({
       listResources: response.data

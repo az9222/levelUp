@@ -579,7 +579,7 @@ function (_React$Component) {
         subjectType: subjectType
       };
       alert("\"".concat(info.title, "\"   Saved"));
-      axios.post('/savedResources', resource).then(function (result) {
+      axios.post('/bookmarks/resources/', resource).then(function (result) {
         var resources = _this2.state.selectedResource.concat(info);
 
         _this2.setState({
@@ -993,7 +993,7 @@ function (_React$Component) {
     value: function getListOfResources() {
       var _this2 = this;
 
-      fetch('/savedResources').then(function (response) {
+      fetch('/bookmarks/resources').then(function (response) {
         return response.json();
       }).then(function (data) {
         _this2.setState({
@@ -1010,7 +1010,7 @@ function (_React$Component) {
 
       e.preventDefault();
       alert("".concat(item.info.title, " deleted"));
-      axios.delete("/savedResources/".concat(item._id)).then(function (response) {
+      axios.delete("/bookmarks/resources/".concat(item._id)).then(function (response) {
         _this3.setState({
           listResources: response.data
         }); // this.getListOfResources();

@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --watch & live-server dist",
+    "build": "webpack --watch",
     "start": "nodemon server/index.js"
   },
   "license": "ISC",
@@ -19,6 +19,7 @@
     "khan": "^0.1.8",
     "live-server": "^1.2.0",
     "mongoose": "^5.3.14",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.4",
     "react": "^16.5.2",

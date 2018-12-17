@@ -26,7 +26,7 @@ class Results extends React.Component {
       subjectType
     };
     alert(`"${info.title}"   Saved`);
-    axios.post('/savedResources', resource)
+    axios.post('/bookmarks/resources/', resource)
     .then((result) => {
       let resources = this.state.selectedResource.concat(info);
       this.setState({
