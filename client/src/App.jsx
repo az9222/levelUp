@@ -88,6 +88,7 @@ class App extends React.Component {
   };
 
   renderSteps() {
+    //migrate to react router
     switch(this.state.step) {
       case 'search':
         return <Search onSubmitChangePage={this.onSubmitChangePage} />
